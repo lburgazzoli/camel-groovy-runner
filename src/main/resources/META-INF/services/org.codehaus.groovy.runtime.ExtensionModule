@@ -1,0 +1,4 @@
+moduleName=camel-groovy-runner
+moduleVersion=1.0.0
+extensionClasses=\
+  com.github.lburgazzoli.camel.groovy.runner.MainExtension
