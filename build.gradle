@@ -27,7 +27,7 @@ ext {
 
     versions = [
         slf4j            : '1.7.30',
-        camel_k_runtime  : '1.1.0-SNAPSHOT',
+        camel_k_runtime  : '1.1.1-SNAPSHOT',
         groovy           : '3.0.1',
     ]
 }

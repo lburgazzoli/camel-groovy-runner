@@ -24,9 +24,20 @@ class MainExtension {
         self.addRoutesBuilder(new RouteBuilder() {
             @Override
             void configure() throws Exception {
+                callable.delegate = this
                 callable.resolveStrategy = Closure.DELEGATE_ONLY
-                callable.call(this)
+                callable.call()
             }
         })
+    }
+
+    static void routes(Main self, Closure<?> callable) {
+        addRoutesBuilder(self, callable)
+    }
+
+    static void properties(Main self, Map<String, String> properties) {
+        properties.each { 
+            k, v -> self.addInitialProperty(k, v)
+        }
     }
 }
