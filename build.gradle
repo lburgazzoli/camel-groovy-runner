@@ -95,7 +95,7 @@ publishing {
 
 signing {
     required {
-        isReleaseVersion
+        isRelease
     }
 
     sign configurations.archives
