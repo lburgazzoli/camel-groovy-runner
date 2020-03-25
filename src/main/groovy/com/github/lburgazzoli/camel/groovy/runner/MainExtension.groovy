@@ -36,7 +36,7 @@ class MainExtension {
     }
 
     static void properties(Main self, Map<String, String> properties) {
-        properties.each { 
+        properties.each {
             k, v -> self.addInitialProperty(k, v)
         }
     }
