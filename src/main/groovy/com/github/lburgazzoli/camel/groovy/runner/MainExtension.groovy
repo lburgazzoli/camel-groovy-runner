@@ -21,7 +21,7 @@ import org.apache.camel.main.Main
 
 class MainExtension {
     static void addRoutesBuilder(Main self, Closure<?> callable) {
-        self.addRoutesBuilder(new RouteBuilder() {
+        self.configure().addRoutesBuilder(new RouteBuilder() {
             @Override
             void configure() throws Exception {
                 callable.delegate = this

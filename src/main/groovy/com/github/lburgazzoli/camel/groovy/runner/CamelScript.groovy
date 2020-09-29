@@ -22,17 +22,25 @@ import org.apache.camel.k.loader.groovy.dsl.BeansConfiguration
 import org.apache.camel.k.loader.groovy.dsl.CamelConfiguration
 import org.apache.camel.k.loader.groovy.dsl.RestConfiguration
 import org.apache.camel.main.Main
+import org.apache.camel.main.MainConfigurationProperties
 import org.apache.camel.model.InterceptDefinition
 import org.apache.camel.model.InterceptFromDefinition
 import org.apache.camel.model.InterceptSendToEndpointDefinition
 import org.apache.camel.model.OnCompletionDefinition
 import org.apache.camel.model.OnExceptionDefinition
 import org.apache.camel.model.RouteDefinition
+import org.apache.camel.model.rest.RestConfigurationDefinition
 import org.apache.camel.model.rest.RestDefinition
 
 abstract class CamelScript extends Script {
     Main main
     EndpointRouteBuilder builder
+
+    def configure(@DelegatesTo(MainConfigurationProperties) Closure<?> callable) {
+        callable.resolveStrategy = Closure.DELEGATE_FIRST
+        callable.delegate = main.configure()
+        callable.call()
+    }
 
     def beans(@DelegatesTo(BeansConfiguration) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
@@ -52,11 +60,17 @@ abstract class CamelScript extends Script {
         callable.call()
     }
 
+    def properties(Map<String, String> properties) {
+        properties.each {
+            main.addOverrideProperty(it.key, it.value)
+        }
+    }
+
     RestDefinition rest() {
         return builder.rest()
     }
 
-    RestConfiguration restConfiguration() {
+    RestConfigurationDefinition restConfiguration() {
         builder.restConfiguration();
     }
 
@@ -109,7 +123,7 @@ abstract class CamelScript extends Script {
             }
         }
 
-        main.addRoutesBuilder(builder)
+        main.configure().addRoutesBuilder(builder)
         main.run()
     }
 }
