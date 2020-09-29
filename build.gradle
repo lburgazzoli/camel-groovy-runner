@@ -4,7 +4,7 @@ plugins {
     id 'maven'
     id 'maven-publish'
     id 'net.researchgate.release' version '2.8.1'
-    id 'io.codearte.nexus-staging' version '0.21.2'
+    id 'io.codearte.nexus-staging' version '0.22.0'
 }
 
 group = 'com.github.lburgazzoli'
@@ -27,8 +27,8 @@ ext {
 
     versions = [
         slf4j            : '1.7.30',
-        camel_k_runtime  : '1.2.1',
-        groovy           : '3.0.2',
+        camel_k_runtime  : '1.4.1',
+        groovy           : '3.0.5',
     ]
 }
 
